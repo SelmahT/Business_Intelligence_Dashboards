@@ -32,7 +32,6 @@ The dashboard emphasizes professional design with clear hierarchy, consistent co
 | # | Visual | Type | Notes |
 |---|--------|------|-------|
 | 1 | Total Revenue | Card | Sum of Revenue |<img width="141" height="92" alt="image" src="https://github.com/user-attachments/assets/08c14e43-39df-42d6-9ec2-d9ff7c299726" />
-
 | 2 | Total Units Sold | Card | Sum of Units Sold |<img width="144" height="89" alt="image" src="https://github.com/user-attachments/assets/8f735e41-d0af-4c57-b9b8-6cc4ef77f0e4" />
 
 | 3 | Average Unit Price | Card | Average of Unit Price |
