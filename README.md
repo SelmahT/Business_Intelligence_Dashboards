@@ -11,7 +11,8 @@ The dashboard emphasizes professional design with clear hierarchy, consistent co
 ---
 
 ### Dashboard Preview
-📄 **View the dashboard design:** [sales_dashboard.pdf](sales_dashboard.pdf)
+� **Interactive Dashboard:** Open `sales_dashboard.pbix` in Power BI Desktop for full interactivity and filtering  
+📄 **Static Preview:** View [sales_dashboard.pdf](sales_dashboard.pdf) for a snapshot of the dashboard design
 
 ---
 
@@ -87,8 +88,9 @@ The dashboard emphasizes professional design with clear hierarchy, consistent co
 ```
 Business_Intelligence_Dashboards/
 ├── README.md
-├── Sales_Data.xlsx
-└── Dashboard_001.pbix (Power BI file)
+├── sales_dashboard.pbix (Power BI dashboard file)
+├── sales_dashboard.pdf (Dashboard preview/export)
+└── .git/ (Version control)
 ```
 
 ---
