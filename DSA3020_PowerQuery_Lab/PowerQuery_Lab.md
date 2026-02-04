@@ -78,11 +78,11 @@ After loading the sales data into Power Query, we used built-in profiling tools 
 
 ---
 
-![alt text](powerquery_screenshots/02_FlagColumn_Creation.PNG)
+DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagColumn_Creation.PNG
 
 ---
 
-![alt text](powerquery_screenshots/02_FlagColumn_Results.PNG)
+DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagColumn_Results.PNG
 
 ---
 
@@ -93,11 +93,11 @@ After loading the sales data into Power Query, we used built-in profiling tools 
 
 ---
 
-![alt text](powerquery_screenshots/02_FlagColumn_Quantity.PNG)
+![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagColumn_Quantity.PNG](powerquery_screenshots/Task2/02_FlagColumn_Quantity.PNG)
 
 ---
 
-![alt text](powerquery_screenshots/02_FlagQuantity_Results.PNG)
+![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagQuantity_Results.PNG](powerquery_screenshots/Task2/02_FlagQuantity_Results.PNG)
 
 ---
 
@@ -109,11 +109,159 @@ After loading the sales data into Power Query, we used built-in profiling tools 
 
 ---
 
-![alt text](powerquery_screenshots/02_AuditQuery_Creation.PNG)
+![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_AuditQuery_Creation.PNG](powerquery_screenshots/Task2/02_AuditQuery_Creation.PNG)
 
 ---
 
-![alt text](powerquery_screenshots/02_AuditQuery_Results.PNG)
+![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_AuditQuery_Results.PNG](powerquery_screenshots/Task2/02_AuditQuery_Results.PNG)
 
 ---
 
+## **DATA CLEANING & STANDARDIZATION**
+
+### ** Column Removal & Rationalization**
+**Removed Columns:**
+- `ENTRYMETHOD`: Removed due to 235 missing values (23.5%) and low business relevance for sales analysis.
+- Individual flag columns: Consolidated into main `DataQualityFlag` column to reduce redundancy.
+---
+
+
+**Column Retention Justification:**
+All remaining columns directly support sales performance analysis, financial reconciliation, and management reporting requirements.
+---
+![alt text](powerquery_screenshots/Task3/03_Remove_EntryMethod.PNG)
+*Figure: Removing irrelevant ENTRYMETHOD column*
+
+---
+### ** Text Field Standardization**
+Applied consistent formatting to all text columns:
+---
+
+#### **BRANCH Column Cleaning**
+**Issues:** Leading/trailing spaces, mixed casing (" Kigali " vs "Nairobi CBD")
+**Actions:** Trim → Clean → Capitalize Each Word
+---
+
+![alt text](powerquery_screenshots/Task3/03_Clean_Branch.PNG)
+---
+![alt text](powerquery_screenshots/Task3/03_Clean_Branch_Result.PNG)
+*Figure: Standardizing BRANCH column text formatting*
+---
+
+#### **COUNTRY Column Cleaning**
+**Issues:** Lowercase entries ("kenya"), abbreviations ("Tz", "Ug")
+**Actions:** Trim → Clean → Capitalize → Value standardization
+**Replacements:** "Tz"→"Tanzania", "Keny"→"Kenya", "Ug"→"Uganda", "Rw"→"Rwanda"
+
+---
+![alt text](powerquery_screenshots/Task3/03_Clean_Country.PNG)
+---
+
+![alt text](powerquery_screenshots/Task3/03_Clean_Country_Result.PNG)
+*Figure: Cleaning and standardizing COUNTRY values*
+
+---
+#### **CATEGORY Column Cleaning**
+**Issues:** Inconsistent naming, trailing spaces ("peripherals ")
+**Actions:** Trim → Clean → Capitalize → "Peripherals"→"Accessories"
+
+---
+![alt text](powerquery_screenshots/Task3/03_Clean_Category.PNG)
+---
+![alt text](powerquery_screenshots/Task3/03_Clean_Category_Results.PNG)
+*Figure: Standardizing product CATEGORY names*
+
+---
+
+#### **PAYMENTMETHOD Column Cleaning**
+**Issues:** Leading spaces (" Card"), case inconsistencies
+**Actions:** Trim → Clean → Capitalize → Standardize "MPESA"
+
+---
+
+#### **SALESREP Column Cleaning**
+**Issues:** Lowercase entries ("bob" vs "edward")
+**Actions:** Trim → Clean → Capitalize Each Word
+
+---
+![alt text](powerquery_screenshots/Task3/03_Clean_Payment&Salesp.PNG)
+
+---
+![alt text](powerquery_screenshots/Task3/03_Clean_Payment&Salesp_Result.PNG)
+*Figure: Cleaning payment method descriptions& Standardizing sales representative names*
+
+### ** Data Type Conversion**
+Ensured all columns have appropriate data types:
+
+#### **SALESAMOUNT Type Correction**
+**Issue:** Text values including "error" entries
+**Actions:** Replace "error"→null → Convert to Decimal Number
+---
+
+![alt text](powerquery_screenshots/Task3/03_SalesAmt_dtype.PNG)
+
+---
+
+![alt text](powerquery_screenshots/Task3/03_SalesAmt_newdtype.PNG)
+*Figure: Converting SALESAMOUNT to Decimal Number type*
+
+---
+
+
+
+### ** Missing Value Handling**
+
+#### **UNIT PRICE (192 missing values - 19.2%):**
+**Action:** Replaced nulls with column average: 1387.17
+**Justification:** Statistical imputation preserves data volume
+
+---
+
+![alt text](powerquery_screenshots/Task3/03_Replace_UnitPrice_Nulls.PNG)
+*Figure: Filling missing Unit Price values*
+
+---
+
+#### **SALESAMOUNT (264 missing values - 26.4%):**
+**Action:** Calculated missing values: Quantity × Unit Price
+**Justification:** Mathematically accurate reconstruction
+
+---
+
+![alt text](powerquery_screenshots/Task3/03_New_Salesamt.PNG)
+
+---
+
+#### **TRANSACTIONDATE (202 missing values - 20.2%):**
+**Action:** Replaced nulls with most frequent date: 2024-03-20
+**Justification:** Maintains temporal consistency
+---
+
+![alt text](powerquery_screenshots/Task3/03_Fill_Dates.PNG)
+*Figure: Filling missing TransactionDate values*
+
+---
+
+### ** Data Entry Error Correction**
+
+#### **QUANTITY Column Issues:**
+**Problems:** Negative values (minimum: -3), 68 zero values
+**Solution:** Created cleaned column with logic: if ≤0 then 1 else original value
+
+---
+
+![alt text](powerquery_screenshots/Task3/03_Replace_Quantities.PNG)
+*Figure: Correcting invalid quantity values*
+
+---
+
+### ** Column Cleanup & Finalization**
+
+#### **Temporary Column Removal**
+**Actions:** Removed intermediate calculation columns, kept final cleaned versions
+
+
+#### **Column Renaming**
+**Actions:** Renamed cleaned columns to final names (Quantity_Cleaned→Quantity, etc.)
+
+---
