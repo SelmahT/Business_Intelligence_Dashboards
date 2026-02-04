@@ -122,48 +122,66 @@ DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagColumn_Results.PNG
 ### ** Column Removal & Rationalization**
 **Removed Columns:**
 - `ENTRYMETHOD`: Removed due to 235 missing values (23.5%) and low business relevance for sales analysis.
+
 - Individual flag columns: Consolidated into main `DataQualityFlag` column to reduce redundancy.
 ---
 
 
 **Column Retention Justification:**
-All remaining columns directly support sales performance analysis, financial reconciliation, and management reporting requirements.
----
-![alt text](powerquery_screenshots/Task3/03_Remove_EntryMethod.PNG)
-*Figure: Removing irrelevant ENTRYMETHOD column*
+
+- All remaining columns directly support sales performance analysis, financial reconciliation, and management reporting requirements.
 
 ---
-### ** Text Field Standardization**
+
+![alt text](powerquery_screenshots/Task3/03_Remove_EntryMethod.PNG)
+
+
+---
+
+### **Text Field Standardization**
 Applied consistent formatting to all text columns:
 ---
 
 #### **BRANCH Column Cleaning**
-**Issues:** Leading/trailing spaces, mixed casing (" Kigali " vs "Nairobi CBD")
-**Actions:** Trim → Clean → Capitalize Each Word
+
+***Issues:*** Leading/trailing spaces, mixed casing (" Kigali " vs "Nairobi CBD")
+
+***Actions:*** Trim → Clean → Capitalize Each Word
+
 ---
 
 ![alt text](powerquery_screenshots/Task3/03_Clean_Branch.PNG)
+
 ---
+
 ![alt text](powerquery_screenshots/Task3/03_Clean_Branch_Result.PNG)
-*Figure: Standardizing BRANCH column text formatting*
+
 ---
 
 #### **COUNTRY Column Cleaning**
-**Issues:** Lowercase entries ("kenya"), abbreviations ("Tz", "Ug")
-**Actions:** Trim → Clean → Capitalize → Value standardization
-**Replacements:** "Tz"→"Tanzania", "Keny"→"Kenya", "Ug"→"Uganda", "Rw"→"Rwanda"
+
+- ***Issues:*** Lowercase entries ("kenya"), abbreviations ("Tz", "Ug")
+
+- ***Actions:*** Trim → Clean → Capitalize → Value standardization
+
+- ***Replacements:*** "Tz"→"Tanzania", "Keny"→"Kenya", "Ug"→"Uganda", "Rw"→"Rwanda"
 
 ---
+
 ![alt text](powerquery_screenshots/Task3/03_Clean_Country.PNG)
+
 ---
 
 ![alt text](powerquery_screenshots/Task3/03_Clean_Country_Result.PNG)
-*Figure: Cleaning and standardizing COUNTRY values*
+
 
 ---
+
 #### **CATEGORY Column Cleaning**
-**Issues:** Inconsistent naming, trailing spaces ("peripherals ")
-**Actions:** Trim → Clean → Capitalize → "Peripherals"→"Accessories"
+
+- ***Issues:*** Inconsistent naming, trailing spaces ("peripherals ")
+
+- ***Actions:*** Trim → Clean → Capitalize → "Peripherals"→"Accessories"
 
 ---
 ![alt text](powerquery_screenshots/Task3/03_Clean_Category.PNG)
@@ -174,28 +192,38 @@ Applied consistent formatting to all text columns:
 ---
 
 #### **PAYMENTMETHOD Column Cleaning**
-**Issues:** Leading spaces (" Card"), case inconsistencies
-**Actions:** Trim → Clean → Capitalize → Standardize "MPESA"
+
+-***Issues:*** Leading spaces (" Card"), case inconsistencies
+
+-***Actions:*** Trim → Clean → Capitalize → Standardize "MPESA"
 
 ---
 
 #### **SALESREP Column Cleaning**
-**Issues:** Lowercase entries ("bob" vs "edward")
-**Actions:** Trim → Clean → Capitalize Each Word
+
+- ***Issues:*** Lowercase entries ("bob" vs "edward")
+
+- ***Actions:*** Trim → Clean → Capitalize Each Word
 
 ---
 ![alt text](powerquery_screenshots/Task3/03_Clean_Payment&Salesp.PNG)
 
 ---
-![alt text](powerquery_screenshots/Task3/03_Clean_Payment&Salesp_Result.PNG)
-*Figure: Cleaning payment method descriptions& Standardizing sales representative names*
 
-### ** Data Type Conversion**
-Ensured all columns have appropriate data types:
+![alt text](powerquery_screenshots/Task3/03_Clean_Payment&Salesp_Result.PNG)
+
+---
+
+### **Data Type Conversion**
+
+- Ensured all columns have appropriate data types:
 
 #### **SALESAMOUNT Type Correction**
-**Issue:** Text values including "error" entries
-**Actions:** Replace "error"→null → Convert to Decimal Number
+
+-***Issue:*** Text values including "error" entries
+
+-***Actions:*** Replace "error"→null → Convert to Decimal Number
+
 ---
 
 ![alt text](powerquery_screenshots/Task3/03_SalesAmt_dtype.PNG)
@@ -203,28 +231,32 @@ Ensured all columns have appropriate data types:
 ---
 
 ![alt text](powerquery_screenshots/Task3/03_SalesAmt_newdtype.PNG)
-*Figure: Converting SALESAMOUNT to Decimal Number type*
+
 
 ---
 
 
 
-### ** Missing Value Handling**
+### **Missing Value Handling**
 
 #### **UNIT PRICE (192 missing values - 19.2%):**
-**Action:** Replaced nulls with column average: 1387.17
-**Justification:** Statistical imputation preserves data volume
+
+-***Action:*** Replaced nulls with column average: 1387.17
+
+-***Justification:*** Statistical imputation preserves data volume
 
 ---
 
 ![alt text](powerquery_screenshots/Task3/03_Replace_UnitPrice_Nulls.PNG)
-*Figure: Filling missing Unit Price values*
+
 
 ---
 
 #### **SALESAMOUNT (264 missing values - 26.4%):**
-**Action:** Calculated missing values: Quantity × Unit Price
-**Justification:** Mathematically accurate reconstruction
+
+-***Action:*** Calculated missing values: Quantity × Unit Price
+
+-***Justification:*** Mathematically accurate reconstruction
 
 ---
 
@@ -233,29 +265,33 @@ Ensured all columns have appropriate data types:
 ---
 
 #### **TRANSACTIONDATE (202 missing values - 20.2%):**
-**Action:** Replaced nulls with most frequent date: 2024-03-20
-**Justification:** Maintains temporal consistency
+
+- ***Action:*** Replaced nulls with most frequent date: 2024-03-20
+
+- ***Justification:*** Maintains temporal consistency
+
 ---
 
 ![alt text](powerquery_screenshots/Task3/03_Fill_Dates.PNG)
-*Figure: Filling missing TransactionDate values*
 
 ---
 
-### ** Data Entry Error Correction**
+### **Data Entry Error Correction**
 
 #### **QUANTITY Column Issues:**
-**Problems:** Negative values (minimum: -3), 68 zero values
-**Solution:** Created cleaned column with logic: if ≤0 then 1 else original value
+
+-***Problems:*** Negative values (minimum: -3), 68 zero values
+
+-***Solution:*** Created cleaned column with logic: if ≤0 then 1 else original value
 
 ---
 
 ![alt text](powerquery_screenshots/Task3/03_Replace_Quantities.PNG)
-*Figure: Correcting invalid quantity values*
+
 
 ---
 
-### ** Column Cleanup & Finalization**
+### **Column Cleanup & Finalization**
 
 #### **Temporary Column Removal**
 **Actions:** Removed intermediate calculation columns, kept final cleaned versions
