@@ -10,15 +10,16 @@ AfriRetail Ltd needed clean, analysis-ready data for sales reporting across East
 
 ### 1. Data Ingestion & Staging
 - Loaded 3 datasets into Power BI.
-- Created staging queries:
-  - `Fact_Sales_Staging` (fact table)
-  - `Dim_Products_Staging` (lookup)
-  - `Dim_Regions_Staging` (lookup)
+### **Query Organization**
+
+| Query Name | Type | Purpose | Table Type |
+|------------|------|---------|------------|
+| `Fact_Sales_Staging` | Staging | Raw sales transactions before cleaning | Fact Table |
+| `Dim_Products_Staging` | Staging | Product reference data before cleaning | Lookup/Dimension Table |
+| `Dim_Regions_Staging` | Staging | Country-region mapping before cleaning | Lookup/Dimension Table |
 ---
 
-- Screenshot:
-
-![alt text](powerquery_screenshots/01_Data_Ingestion_Staging_Queries.PNG)
+![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task1/01_Data_Ingestion_Staging_Queries.PNG](powerquery_screenshots/Task1/01_Data_Ingestion_Staging_Queries.PNG)
 
 ---
 
@@ -36,11 +37,11 @@ After loading the sales data into Power Query, we used built-in profiling tools 
    - **Purpose:** To visually inspect which columns contain nulls, errors, or inconsistent data.
 
 ---
-![alt text](powerquery_screenshots/02_Data_Profiling_View1.PNG)
+![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_Data_Profiling_View1.PNG](powerquery_screenshots/Task2/02_Data_Profiling_View1.PNG)
 ---
-![alt text](powerquery_screenshots/02_Data_Profiling_View2.PNG)
+![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_Data_Profiling_View2.PNG](powerquery_screenshots/Task2/02_Data_Profiling_View2.PNG)
 ---
-![alt text](powerquery_screenshots/02_Data_Profiling_View3.PNG)
+![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_Data_Profiling_View3.PNG](powerquery_screenshots/Task2/02_Data_Profiling_View3.PNG)
 ---
 
 ## Data Quality Issues Identified in Sales Data
