@@ -12,4 +12,4 @@ AfriRetail Ltd needed clean, analysis-ready data for sales reporting across East
   - `Dim_Products_Staging` (lookup)
   - `Dim_Regions_Staging` (lookup)
 - Screenshot:
-powerquery_screenshots/01_Data_Ingestion_Staging_Queries.PNG
+![powerquery_screenshots/01_Data_Ingestion_Staging_Queries.PNG]
