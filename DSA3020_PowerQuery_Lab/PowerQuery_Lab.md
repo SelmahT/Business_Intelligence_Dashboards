@@ -746,13 +746,14 @@ During profitability analysis, discovered that SalesAmount was previously calcul
 
 ## **DATA GOVERNANCE & LOAD CONTROL**
 
-### **7.1 Data Quality Audit Implementation**
+### **Data Quality Audit Implementation**
 
 ---
 
 #### **Business Issues Audit Query**
 
-Created `Audit_Business_Issues` to systematically identify records requiring business review:
+- Created `Audit_Business_Issues` to systematically identify records requiring business review:
+
 ---
 
 ![alt text](powerquery_screenshots/Task7/07_Create_Audit.png)
