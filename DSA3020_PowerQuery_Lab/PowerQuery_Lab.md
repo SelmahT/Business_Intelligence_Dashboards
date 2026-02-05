@@ -550,3 +550,197 @@ Applied consistent formatting to all text columns:
 
 ---
 
+## **BUSINESS TRANSFORMATIONS**
+
+### **Calculated Sales Metric**
+
+#### **Sales Value Verification**
+
+Created a validation metric to ensure sales calculations are accurate:
+
+- ***Metric:*** `CalculatedSalesValue`
+- ***Formula:*** `[Quantity] × [UnitPrice]`
+- ***Purpose:*** Verifies the accuracy of existing SalesAmount column
+- ***Business Value:*** Ensures data integrity for financial reporting
+
+---
+
+![alt text](powerquery_screenshots/Task5/05_Calculated_Sales_Value.png)
+
+---
+
+#### **Validation Results:**
+
+- All 1000 records calculated successfully
+- Perfect match with existing SalesAmount column
+- Confirms data consistency in pricing calculations
+
+---
+
+![alt text](powerquery_screenshots/Task5/05_Sales_Validation.png)
+
+---
+
+![alt text](powerquery_screenshots/Task5/05_Sales_Validation_Results.png)
+
+---
+
+### **Profitability Metric**
+
+#### **Gross Profit Calculation**
+- ***Metric:*** `GrossProfit`
+- ***Formula:*** `[SalesAmount] - ([Quantity] × [CostPrice])`
+- ***Purpose:*** Measures absolute profit per transaction
+- ***Business Insight:*** Reveals transaction-level profitability
+
+---
+
+![alt text](powerquery_screenshots/Task5/05_GrossProfit_Calculation.png)
+
+---
+
+#### **Profit Margin Percentage**
+- ***Metric:*** `ProfitMarginPercent`
+- ***Formula:*** `([GrossProfit] ÷ [SalesAmount]) × 100`
+- ***Purpose:*** Shows profitability as percentage of sales
+- ***Business Value:*** Enables margin analysis across products/categories
+
+---
+
+![alt text](powerquery_screenshots/Task5/05_ProfitMargin_Calculation.png)
+
+---
+
+#### **Data Discovery:**
+
+
+During profitability analysis, discovered that SalesAmount was previously calculated as `Quantity × UnitPrice`, resulting in:
+- GrossProfit = `Quantity × (UnitPrice - CostPrice)`
+- This revealed the importance of accurate CostPrice data for margin analysis
+
+---
+
+#### **Sales Tier Classification**
+- ***Column:*** `SalesTier`
+- ***Business Logic:*** Classifies transactions based on sales value
+- ***Thresholds:*** 
+
+- High: SalesAmount > 20,000
+- Medium: SalesAmount > 10,000  
+- Low: SalesAmount ≤ 10,000
+
+---
+
+![alt text](powerquery_screenshots/Task5/05_SalesTier_CustomColumn.png)
+
+---
+
+## **DIMENSION TABLES & AGGREGATION**
+
+### **Dimension Tables Created**
+
+---
+
+#### **Dim_Date Table**
+
+- ***Source:*** TransactionDate from Fact_Sales_Integrated
+- ***Cleaning:*** Removed duplicate dates
+
+---
+
+![alt text](powerquery_screenshots/Task6/06_Dim_Date_Initial.png)
+
+---
+
+***Attributes Added:***
+
+- Year, Quarter, Month, MonthName
+- Day, DayOfWeek
+
+---
+
+![alt text](powerquery_screenshots/Task6/06_DimDates_Attributes.png)
+
+---
+
+![alt text](powerquery_screenshots/Task6/06_DimDate_RemoveDuplicates.png)
+
+---
+
+***Rows:*** [3] unique transaction dates
+
+---
+
+#### **Dim_Location Table**  
+
+- ***Source:*** Country, Region, MarketGroup, Branch from Fact_Sales_Integrated
+- ***Cleaning:*** Removed duplicate location combinations
+- ***Key Added:*** LocationID (Index column)
+- ***Rows:*** [30] unique location combinations
+
+---
+
+![alt text](powerquery_screenshots/Task6/06_DimLocation_Creation.png)
+
+---
+
+![alt text](powerquery_screenshots/Task6/06_DimLocation_Final.png)
+
+---
+
+### **Aggregated Summary Table**
+
+#### **Agg_SalesByRegionCountry**
+
+***Grouping Levels:*** Region → Country (hierarchical)
+
+***Aggregation Metrics:***
+
+1. ***TotalSales:*** Sum of SalesAmount
+2. ***TotalQuantity:*** Sum of Quantity  
+3. ***TotalProfit:*** Sum of GrossProfit
+
+---
+
+![alt text](powerquery_screenshots/Task6/06_Aggregation_Setup.png)
+
+---
+
+***Calculated Metrics:***
+
+- ***ProfitMarginPercent:*** (TotalProfit / TotalSales) × 100
+- ***AvgTransactionValue:*** TotalSales / TotalQuantity
+
+---
+
+![alt text](powerquery_screenshots/Task6/06_Calc_AggColumns.png)
+
+---
+
+***Visualization Suitability:***
+
+- Perfect for geographical maps and regional comparison charts
+- Enables country-level performance dashboards
+- Supports hierarchical drilling (Region → Country)
+
+---
+
+### **Dimensional Modeling Applied**
+
+***Star Schema Components:***
+
+- ***Fact Table:*** `Fact_Sales_Integrated` (transaction granularity)
+- ***Dimension Tables:*** `Dim_Date`, `Dim_Location` (descriptive attributes)
+- ***Aggregation Table:*** `Agg_SalesByRegionCountry` (summary level)
+
+---
+
+### **Key Design Principles:**
+
+- Dimension tables contain unique, non-repeating values
+- Fact table maintains foreign keys to dimensions
+- Aggregation table pre-computes common business queries
+- Proper indexing with Date and Location keys
+
+---
+
