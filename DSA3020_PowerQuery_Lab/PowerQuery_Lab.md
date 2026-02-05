@@ -452,6 +452,8 @@ Applied consistent formatting to all text columns:
 1. ***Missing Supplier Information:*** records with "Unknown Supplier"
 2. ***Missing Cost Data:*** records with CostPrice = 0
 
+
+
 ***Resolution Strategy Applied:***
 
 - ***Supplier nulls:*** Replaced with "Unknown Supplier" placeholder
@@ -460,11 +462,11 @@ Applied consistent formatting to all text columns:
 
 ---
 
-![alt text](powerquery_screenshots/04_Fill_Supplier_Nulls.png)
+![alt text](powerquery_screenshots/Task4/04_Fill_Supplier_Nulls.png)
 
 ---
 
-![alt text](powerquery_screenshots/04_Fill_CostPrice_Nulls.png)
+![alt text](powerquery_screenshots/Task4/04_Fill_CostPrice_Nulls.png)
 
 ---
 
@@ -484,7 +486,7 @@ Applied consistent formatting to all text columns:
 
 ---
 
-![alt text](powerquery_screenshots/04_Unmatched_Products_Details.png)
+![alt text](powerquery_screenshots/Task4/04_Unmatched_Products_Details.png)
 
 ---
 
@@ -496,7 +498,7 @@ Applied consistent formatting to all text columns:
 
 ---
 
-![alt text](powerquery_screenshots/04_Audit_Summary.png)
+![alt text](powerquery_screenshots/Task4/04_Audit_Summary.png)
 
 ---
 
@@ -547,3 +549,4 @@ Applied consistent formatting to all text columns:
 ***Scalable Structure:***  Star schema ready for additional dimension tables
 
 ---
+
