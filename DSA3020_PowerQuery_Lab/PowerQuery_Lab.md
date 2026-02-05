@@ -78,11 +78,11 @@ After loading the sales data into Power Query, we used built-in profiling tools 
 
 ---
 
-DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagColumn_Creation.PNG
+![alt text](powerquery_screenshots/Task2/02_FlagColumn_Creation.PNG)
 
 ---
 
-DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagColumn_Results.PNG
+![alt text](powerquery_screenshots/Task2/02_FlagColumn_Results.PNG)
 
 ---
 
@@ -109,21 +109,24 @@ DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagColumn_Results.PNG
 
 ---
 
-![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_AuditQuery_Creation.PNG](powerquery_screenshots/Task2/02_AuditQuery_Creation.PNG)
+![alt text](powerquery_screenshots/Task2/02_AuditQuery_Creation.PNG)
 
 ---
 
-![DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_AuditQuery_Results.PNG](powerquery_screenshots/Task2/02_AuditQuery_Results.PNG)
+![alt text](powerquery_screenshots/Task2/02_AuditQuery_Results.PNG)
 
 ---
 
 ## **DATA CLEANING & STANDARDIZATION**
 
-### ** Column Removal & Rationalization**
-**Removed Columns:**
+### **Column Removal & Rationalization**
+
+***Removed Columns:***
+
 - `ENTRYMETHOD`: Removed due to 235 missing values (23.5%) and low business relevance for sales analysis.
 
 - Individual flag columns: Consolidated into main `DataQualityFlag` column to reduce redundancy.
+
 ---
 
 
@@ -140,13 +143,14 @@ DSA3020_PowerQuery_Lab/powerquery_screenshots/Task2/02_FlagColumn_Results.PNG
 
 ### **Text Field Standardization**
 Applied consistent formatting to all text columns:
+
 ---
 
-#### **BRANCH Column Cleaning**
+#### **Branch Column Cleaning**
 
-***Issues:*** Leading/trailing spaces, mixed casing (" Kigali " vs "Nairobi CBD")
+- ***Issues:*** Leading/trailing spaces, mixed casing (" Kigali " vs "Nairobi CBD")
 
-***Actions:*** Trim → Clean → Capitalize Each Word
+- ***Actions:*** Trim → Clean → Capitalize Each Word
 
 ---
 
@@ -206,6 +210,7 @@ Applied consistent formatting to all text columns:
 - ***Actions:*** Trim → Clean → Capitalize Each Word
 
 ---
+
 ![alt text](powerquery_screenshots/Task3/03_Clean_Payment&Salesp.PNG)
 
 ---
@@ -220,9 +225,9 @@ Applied consistent formatting to all text columns:
 
 #### **SALESAMOUNT Type Correction**
 
--***Issue:*** Text values including "error" entries
+- ***Issue:*** Text values including "error" entries
 
--***Actions:*** Replace "error"→null → Convert to Decimal Number
+- ***Actions:*** Replace "error"→null → Convert to Decimal Number
 
 ---
 
@@ -241,9 +246,9 @@ Applied consistent formatting to all text columns:
 
 #### **UNIT PRICE (192 missing values - 19.2%):**
 
--***Action:*** Replaced nulls with column average: 1387.17
+- ***Action:*** Replaced nulls with column average: 1387.17
 
--***Justification:*** Statistical imputation preserves data volume
+- ***Justification:*** Statistical imputation preserves data volume
 
 ---
 
@@ -254,9 +259,9 @@ Applied consistent formatting to all text columns:
 
 #### **SALESAMOUNT (264 missing values - 26.4%):**
 
--***Action:*** Calculated missing values: Quantity × Unit Price
+- ***Action:*** Calculated missing values: Quantity × Unit Price
 
--***Justification:*** Mathematically accurate reconstruction
+- ***Justification:*** Mathematically accurate reconstruction
 
 ---
 
@@ -280,9 +285,9 @@ Applied consistent formatting to all text columns:
 
 #### **QUANTITY Column Issues:**
 
--***Problems:*** Negative values (minimum: -3), 68 zero values
+- ***Problems:*** Negative values (minimum: -3), 68 zero values
 
--***Solution:*** Created cleaned column with logic: if ≤0 then 1 else original value
+- ***Solution:*** Created cleaned column with logic: if ≤0 then 1 else original value
 
 ---
 
@@ -294,10 +299,12 @@ Applied consistent formatting to all text columns:
 ### **Column Cleanup & Finalization**
 
 #### **Temporary Column Removal**
-**Actions:** Removed intermediate calculation columns, kept final cleaned versions
+
+- **Actions:** Removed intermediate calculation columns, kept final cleaned versions
 
 
 #### **Column Renaming**
-**Actions:** Renamed cleaned columns to final names (Quantity_Cleaned→Quantity, etc.)
+
+- **Actions:** Renamed cleaned columns to final names (Quantity_Cleaned→Quantity, etc.)
 
 ---
