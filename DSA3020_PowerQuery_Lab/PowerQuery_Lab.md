@@ -744,3 +744,185 @@ During profitability analysis, discovered that SalesAmount was previously calcul
 
 ---
 
+## **DATA GOVERNANCE & LOAD CONTROL**
+
+### **7.1 Data Quality Audit Implementation**
+
+---
+
+#### **Business Issues Audit Query**
+
+Created `Audit_Business_Issues` to systematically identify records requiring business review:
+---
+
+![alt text](powerquery_screenshots/Task7/07_Create_Audit.png)
+
+---
+
+***Audit Logic Applied:***
+
+![alt text](powerquery_screenshots/Task7/07_AddFlag.png)
+
+---
+
+***Issue Distribution Identified:***
+
+
+- ***Missing Supplier:*** 1,543 records (products without supplier information)
+- ***Loss Making:*** 1,177 records (transactions with negative profit)
+- ***Missing Cost:*** records (products with zero cost data)
+
+---
+
+#### **Audit Summary Statistics**
+
+Created `Audit_Issue_Summary` providing aggregated view of data quality:
+
+---
+
+![alt text](<powerquery_screenshots/Task7/07_Create_Audit summary.png>)
+
+---
+
+![alt text](powerquery_screenshots/Task7/07_AuditSummary_Results.png)
+
+---
+
+***Summary Metrics:***
+
+- Total records with issues: [~2720] 
+- Primary issue types and frequencies
+- Basis for data governance prioritization
+
+---
+
+### **Load Control Implementation**
+
+#### **Strategic Query Loading Management**
+
+Implemented selective loading to ensure only analysis-ready data enters the Power BI data model:
+
+---
+
+***Queries DISABLED from Load (✗):***
+
+- `Fact_Sales_Staging` (raw source data)
+- `Dim_Products_Staging` (staging dimension)
+- `Dim_Regions_Staging` (staging dimension)
+- `Audit_Business_Issues` (governance only)
+- `Audit_Issue_Summary` (governance only)
+
+---
+
+***Rationale:*** Staging and audit queries remain in Power Query for reference but don't clutter the data model or impact performance.
+
+---
+
+![alt text](powerquery_screenshots/Task7/07_DisableStaging&Audit.png)
+
+---
+
+***Queries ENABLED for Load (✓):***
+
+- `Fact_Sales_Integrated` (clean fact table)
+- `Dim_Date` (time dimension)
+- `Dim_Location` (geography dimension)
+- `Agg_SalesByRegionCountry` (pre-aggregated summary)
+
+***Rationale:*** Only production-ready, analysis-optimized tables load to the data model.
+
+---
+
+### **Professional Query Organization**
+
+#### **Structured Query Management**
+
+Implemented professional folder structure for maintainability and clarity:
+
+---
+
+***Organizational Groups Created:***
+
+1. ***`01_FACT_TABLES`***: Production fact tables
+2. ***`02_DIMENSIONS`***: Dimension tables (Date, Location)
+3. ***`03_AGGREGATIONS`***: Pre-calculated summary tables
+4. ***`00_STAGING_ARCHIVE`***: Raw/staging queries (disabled)
+5. ***`04_GOVERNANCE`***: Audit and monitoring queries (disabled)
+
+---
+
+![alt text](powerquery_screenshots/Task7/07_CreateGroup.png)
+
+---
+
+![alt text](powerquery_screenshots/Task7/07_CreateDim_Group.png)
+
+---
+
+![alt text](powerquery_screenshots/Task7/07_CreateAgg_Group.png)
+
+---
+
+![alt text](powerquery_screenshots/Task7/07_Governance_Group.png)
+
+---
+
+![alt text](powerquery_screenshots/Task7/07_Staging_Archive.png)
+
+---
+
+### **Final Data Model Verification**
+
+#### **Clean Production Data Model**
+Verified that only essential tables load to Power BI:
+
+***Loaded to Data Model:***
+
+- `Fact_Sales_Integrated` (>1,000 transactions)
+- `Dim_Date` ([3] unique dates)
+- `Dim_Location` (unique locations)
+- `Agg_SalesByRegionCountry` ([4] region-country combinations)
+
+***Excluded from Data Model:***
+
+- ❌ All staging queries
+- ❌ All audit/governance queries
+- ❌ Any intermediate/temporary tables
+
+---
+
+#### **Automatic Relationship Detection**
+
+Power BI successfully auto-detected and created relationships:
+- Fact_Sales_Integrated ↔ Dim_Date (on TransactionDate)
+- Fact_Sales_Integrated ↔ Dim_Location (on Location attributes)
+
+---
+
+### **Data Governance Framework Established**
+
+---
+
+#### **Key Governance Components:**
+
+1. ***Audit Trail:*** Complete tracking of data quality issues
+2. ***Separation of Concerns:*** Clear division between staging, production, and governance
+3. ***Performance Optimization:*** Minimal tables loaded to data model
+4. ***Maintainability:*** Organized structure for future enhancements
+5. ***Transparency:*** Clear visibility into data quality status
+
+---
+
+#### **Business Impact Delivered:**
+
+- ***Trustworthy Reporting:*** Only validated data reaches decision-makers
+- ***Performance Optimized:*** Clean, efficient data model
+- ***Scalable Foundation:*** Organized structure supports future growth
+- ***Governance Ready:*** Audit trails for compliance and quality control
+
+---
+
+
+***Project Outcome:*** AfriRetail Ltd now has a clean, reliable, analysis-ready dataset that addresses all management concerns about inconsistent reporting, mismatched records, and untrustworthy trends. The data foundation is now prepared for accurate visualization and confident decision-making across East African operations.
+
+---
