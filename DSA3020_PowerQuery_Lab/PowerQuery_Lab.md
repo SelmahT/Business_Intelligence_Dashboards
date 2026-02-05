@@ -308,3 +308,242 @@ Applied consistent formatting to all text columns:
 - **Actions:** Renamed cleaned columns to final names (Quantity_Cleaned→Quantity, etc.)
 
 ---
+
+### **Data Integration Challenges & Solutions**
+
+#### **Issue 1: Incorrect Header Structure**
+---
+
+***Problem:***
+
+-  Dimension tables (`Dim_Regions_Staging` ) had column headers stored as first row of data instead of proper column names.
+
+---
+
+***Evidence:***
+
+- Column names appeared as generic "Column1", "Column2", "Column3"
+
+- First data row contained "CountryRaw", "Region", "MarketGroup" as values
+
+---
+
+***Solution Applied:***
+
+1. **Power Query Transformation:** Used "Use First Row as Headers" function
+
+2. **Result:** Proper column names extracted from first data row
+
+3. **Impact:** Enabled correct merging based on meaningful column names
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_Fixed_Region_Headers_Before.png)
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_Fixed_Region_Headers_After.png)
+
+---
+
+#### **Data Quality Issue Addressed:**
+-  Fixed header structure for reliable merging
+-  Enabled column name matching between tables
+-  Prevented merge failures due to generic column names
+
+---
+
+### **Dimension Table Preparation**
+
+**Product Table Cleaning Applied:**
+- Removed duplicate "USB Cable" entry
+- Filled missing CostPrice with category averages
+- Standardized supplier names (Techsource, Globaltech)
+- Aligned categories with sales data
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_Dim_Products_Before.png)
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_Dim_Products_After.png)
+
+---
+
+**Region Table Cleaning Applied:**
+- Fixed headers (Countryraw → Country)
+- Standardized country names to match sales data
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_Dim_Region_Before.png)
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_Dim_Region_Cleaned.png)
+
+---
+
+***Note: Full cleaning details documented in Task 3 methodology***
+
+---
+
+## **DATA INTEGRATION (MERGE & APPEND)**
+
+### **Merge Operations Performed**
+
+#### **First Merge: Sales with Products Dataset**
+**Configuration:**
+- **Left Table:** `Fact_Sales_Staging` (1000 cleaned sales records)
+- **Right Table:** `Dim_Products_Staging` (cleaned product reference)
+- **Join Key:** `PRODUCTNAME` ↔ `Productname`
+- **Join Type:** Left Outer Join (preserve all sales records)
+- **Expanded Columns:** `Category`, `CostPrice`, `Supplier`
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_Product_Merge_Setup.png)
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_MergeProduct_Expanded.png)
+
+---
+
+#### **Second Merge: Sales with Regions Dataset**
+
+***Configuration:***
+
+- ***Left Table:*** Sales table (already merged with products)
+- ***Right Table:*** `Dim_Regions_Staging` (cleaned region mapping)
+- ***Join Key:*** `COUNTRY` ↔ `Country`
+- ***Join Type:*** Left Outer Join
+- ***Expanded Columns:*** `Region`, `MarketGroup`
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_Region_Merge_Setup.png)
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_MergeRegion_Expanded.png)
+
+---
+
+### **Data Integrity Verification**
+
+#### **Record Preservation:**
+- **Initial sales records:** 1000
+- **After product merge:** 1000 records (0% loss)
+- **After region merge:** 1000 records (0% loss)
+- **Verification:** All original transactions preserved through both merges
+
+---
+
+![alt text](powerquery_screenshots/Task4/04_RecordCount_Veification.png)
+
+---
+
+### **Unmatched Records Handling**
+
+#### **Product Data Gaps Identified:**
+
+1. ***Missing Supplier Information:*** records with "Unknown Supplier"
+2. ***Missing Cost Data:*** records with CostPrice = 0
+
+***Resolution Strategy Applied:***
+
+- ***Supplier nulls:*** Replaced with "Unknown Supplier" placeholder
+- ***CostPrice nulls:*** Replaced with 0 value (flags missing cost data)
+- ***Rationale:*** Maintains data completeness while clearly identifying gaps
+
+---
+
+![alt text](powerquery_screenshots/04_Fill_Supplier_Nulls.png)
+
+---
+
+![alt text](powerquery_screenshots/04_Fill_CostPrice_Nulls.png)
+
+---
+
+#### **Region Data Completeness:**
+
+- ***Country-Region Match Rate:*** 100%
+- ***All 1000 records*** successfully mapped to regions
+- ***No null values*** in Region or MarketGroup columns
+
+---
+
+### **Audit Queries Created**
+
+#### **Audit_UnmatchedProducts:**
+- ***Purpose:*** Isolate records requiring product master data updates
+- ***Criteria:*** Supplier = "Unknown Supplier" OR CostPrice = 0
+
+---
+
+![alt text](powerquery_screenshots/04_Unmatched_Products_Details.png)
+
+---
+
+#### **Audit_Integration_Summary:**
+
+- ***Purpose:*** Overall integration quality assessment
+- ***Metrics:*** Fully integrated vs needs review classification
+- ***Insight:*** [84]% of records fully integrated, [26]% requiring attention
+
+---
+
+![alt text](powerquery_screenshots/04_Audit_Summary.png)
+
+---
+
+### **Final Integrated Dataset**
+
+#### **Table Structure:**
+
+- ***Final Name:*** `Fact_Sales_Integrated`
+- ***Total Columns:*** 15
+- ***Total Records:*** 1000
+
+#### **Column Composition:**
+
+1. ***Transaction Data:*** TransactionID, TransactionDate, Quantity, UnitPrice, SalesAmount
+2. ***Location Data:*** Branch, Country, Region, MarketGroup
+3. ***Product Data:*** ProductName, Category, CostPrice, Supplier
+4. ***Business Data:*** PaymentMethod, SalesRep
+
+---
+
+### **Integration Quality Metrics**
+
+| Metric | Result | Business Impact |
+|--------|--------|-----------------|
+| **Record Preservation** | 100% (1000/1000) | No data loss in integration |
+| **Product Match Rate** | [84]% | [8122] products fully mapped to master data |
+| **Country Match Rate** | 100% | Complete geographical classification |
+| **Data Completeness** | 100% | All records have Supplier and CostPrice values |
+| **Integration Quality** | [100]% fully integrated | Readiness for business analysis |
+
+---
+
+### **Key Integration Decisions**
+
+1. **Left Outer Joins:** Ensured no sales records were lost during integration
+2. **Placeholder Values:** Used "Unknown Supplier" and 0 for missing data (clear identification)
+3. **Audit Trail:** Created separate queries for data governance review
+4. **Column Standardization:** Maintained consistent naming conventions across integrated dataset
+
+---
+
+### **Business Value Delivered**
+
+***Complete Product Context:***  All sales now include cost and supplier information  
+***Geographical Intelligence:***  All transactions mapped to regions and market groups  
+***Data Governance:***  Clear audit trail for data quality issues  
+***Analysis Ready:***  Integrated dataset supports cross-dimensional analysis  
+***Scalable Structure:***  Star schema ready for additional dimension tables
+
+---
