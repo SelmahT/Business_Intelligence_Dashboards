@@ -107,7 +107,7 @@ The dataset used is **FactSales**, containing transactional sales data with two 
 ---
 
 ## Author
-**Your Name** – Selmah Tzindori  
+**Selmah Tzindori**  
 
 ---
 
