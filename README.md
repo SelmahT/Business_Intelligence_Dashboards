@@ -88,5 +88,29 @@ A comprehensive sales analytics dashboard providing insights into revenue perfor
 
 ---
 
+### 3. **Retail Sales Data Modeling & Power Query Transformation**
+**📍 Project Type:** Data Engineering & Data Modeling  
+**🎯 Focus:** Data cleaning, transformation, relationships, dimensional modeling  
+**📊 Status:** COMPLETED ✅  
 
+**Business Context:**  
+This project focuses on preparing a raw retail transactions dataset for analytics by applying structured data cleaning and transformation steps in Power Query, followed by proper data modeling in Power BI. The goal was to ensure clean, reliable data and correct relationships to support accurate reporting and analysis.
 
+**Key Deliverables:**
+- ✅ Data profiling and validation of key columns  
+- ✅ Removal of empty and invalid records  
+- ✅ Data type standardization (numeric, date, text)  
+- ✅ Text cleaning for product descriptions  
+- ✅ Fact and dimension table creation  
+- ✅ Star schema modeling (FactSales, Customer, Product)  
+- ✅ Relationship definition and validation  
+- ✅ Key uniqueness verification  
+- ✅ Date table decision with justification  
+- ✅ Data dictionary documentation  
+
+**Files:**
+- `DSA3050_PowerQuery_DataModel_Lab.pbix` – Power BI model with transformations and relationships  
+- `DSA3050A_PowerQuery&Modelling.pdf` – Full documentation with explanations and screenshots  
+- `powerquery&modelling.md` - Documentation of the process
+
+---
